@@ -2,7 +2,7 @@
 lifeTime
 效果展示
 ![image](https://github.com/maryrui/upload-and-photoswipe/blob/master/img/one.png)
-![image](https://github.com/maryrui/upload-and-photoswipe/blob/master/img/one.png)
+![image](https://github.com/maryrui/upload-and-photoswipe/blob/master/img/two.png)
 点击图片幻灯片播放，欢动切换，开始逻辑准备用swipe 插件完成，但是给swipe父元素定位后，出现的滑动问题（放弃方案）。
 photoswipe使用过程中发现问题:
 1.关于自定义按钮
