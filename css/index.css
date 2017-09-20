@@ -1,0 +1,253 @@
+body{
+    font-size:.26rem;
+    color:#333;
+    background:#f2f2f2;
+}
+/* #setArticle{
+     display:none;
+ }*/
+#setArticle .layout{
+    background:#fff;
+    padding-bottom:.3rem;
+}
+#setArticle .layout>p{
+    padding:.3rem 0;
+    margin-left:.3rem;
+    border-bottom:1px solid #ddd;
+}
+#setArticle .layout>p input{
+    border:0;
+    outline:none;
+    color:#333;
+}
+.text_head{
+    font-size:.28rem;
+    color:#333;
+    font-weight:700;
+    line-height:.32rem;
+    margin-right:.3rem;
+}
+.box{
+    padding:0 .3rem;
+}
+.box>p{
+    padding: .3rem 0;
+}
+[type="text"]{
+    padding:0 .15rem;
+}
+#text_content{
+    resize:none;
+    width:100%;
+    height:4.5rem;
+    padding:.15rem;
+}
+.text-center{
+    text-align:center;
+}
+.img_list{
+    overflow:hidden;
+    float:left;
+}
+.img_list li{
+    box-sizing:border-box;
+    border:1px solid #ddd;
+    float:left;
+    width:1.4rem;
+    height:1.4rem;
+}
+.img_list li:not(:last-child){
+    margin-right:.4rem;
+}
+.img_boxs{
+    overflow:hidden;
+}
+.img_list img{
+    width:100%;
+    height:100%;
+    border:0;
+    margin:0;
+    padding:0;
+}
+.img_file{
+    width:1.4rem;
+    height:1.4rem;
+    float:left;
+    border:2px dashed #ddd;
+    box-sizing:border-box;
+    background:url(../img/z_add.png) no-repeat;
+    background-size:100%;
+    margin-left:.4rem;
+}
+#file{
+    opacity:0;
+    display:block;
+    width:100%;
+    height:100%;
+}
+.img_text{
+    padding:.2rem 0;
+    color:rgba(153,153,153,1);
+    font-size:.2rem;
+}
+.text_content_box{
+    width:100%;
+}
+.text_content_box textarea{
+    width:94%;
+    resize:none;
+    height:5.87rem;
+    padding:.1rem .15rem;
+    font-size:.2rem;
+    color:rgba(153,153,153,1);
+    outline:none;
+}
+.btn{
+    display:block;
+    width:78%;
+    height:.88rem;
+    background:#E0C279;
+    border-radius:5px;
+    border:0;
+    margin:0 auto;
+    margin-top:.36rem;
+    color:#fff;
+    font-size:.36rem;
+    outline:0;
+}
+.mask{
+    position:fixed;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,.7);
+    width:100%;
+    height:100%;
+    display:none;
+}
+.swiper-container{
+    width:100%;
+    height:auto;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+.swiper-slide{
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.swiper-slide img{
+    width:100%;
+}
+.delet_box{
+    position:fixed;
+    bottom:15%;
+    left:50%;
+    transform:translate(-50%,100%);
+    z-index:10000;
+    display:none;
+}
+.delet_span{
+    display:inline-block;
+    width:.5rem;
+    height:.6rem;
+    background:url("../img/icon_clean@3x.png") no-repeat;
+    background-size:100%;
+}
+
+/*预览css*/
+#preview{
+    display:none;
+}
+#preview .layout{
+    width:100%;
+    box-sizing:border-box;
+    padding:.3rem .3rem 1.5rem .3rem;
+    color:#333;
+    line-height:.45rem;
+}
+.author{
+    font-size:.2rem;
+    line-height:.45rem;
+}
+.article{
+    font-size:.20rem;
+    line-height:.45rem;
+    margin-top:.6rem;
+}
+
+.btn_box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding:.3rem;
+    box-sizing: border-box;
+    background:#fff;
+
+}
+.img_box li{
+    padding:.1rem;
+}
+.img_box img{
+    width:100%;
+}
+.btn_box{
+    display:flex;
+    justify-content: space-around;
+}
+.btn_box button{
+    display:block;
+    width:40%;
+    height:.88rem;
+    text-align:center;
+    line-height:.88rem;
+    background:#E0C279;
+    border:0;
+    font-size:.3rem;
+    color:#fff;
+    border-radius:10px;
+}
+.title{
+    font-size:.34rem;
+}
+/*退出按钮*/
+.close_box{
+    position:absolute;
+    top:.1rem;
+    right:.2rem;
+    padding:.3rem;
+    width:.3rem;
+    height:.3rem;
+    z-index:10000;
+}
+.close_btns{
+    width:100%;
+    height:100%;
+    display: block;
+    background:url("../img/close.png") no-repeat;
+    background-size:100%;
+    border:0;
+    outline:none;
+
+}
+/*设置大图100%*/
+.pswp__img{
+    width:100% !important;
+    height:auto !important;
+}

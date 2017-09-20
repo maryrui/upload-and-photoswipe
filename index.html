@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel='stylesheet prefetch' href='css/photoswipe.min.css'>
+    <link rel='stylesheet prefetch' href='css/default-skin.min.css'>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+        <div id="setArticle">
+            <div class="layout">
+                <p><span class="text_head">文章标题</span><input type="text" id="title" maxlength="16" placeholder="请输入小于16个字的文章标题"></p>
+                <div class="box">
+                    <p><span class="text_head">轨道咨询</span></p>
+                    <div class="img_boxs">
+                        <ul class="img_list">
+                        </ul>
+                        <div class="img_file">
+                            <input type="file" name="file" id="file" multiple value="" accept="image/jpeg,image/gif" multiple/>
+                        </div>
+                    </div>
+                    <p class="img_text">*第一张图为标题封面图，最多可上传8张图片</p>
+                    <div class="text_content_box">
+                        <textarea name="" id="article" cols="30" rows="10" maxlength="800" placeholder="请编辑少于800字的文章"></textarea>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center"><button class="btn preview">预览</button></p>
+            <div class="delet_box">
+            <span class="delet_span">
+            </span>
+            </div>
+            <div class="close_box">
+                <button class="close_btns"></button>
+            </div>
+            <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+                <!-- Background of PhotoSwipe.
+                     It's a separate element, as animating opacity is faster than rgba(). -->
+                <div class="pswp__bg"></div>
+
+                <!-- Slides wrapper with overflow:hidden. -->
+                <div class="pswp__scroll-wrap">
+
+                    <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+                    <div class="pswp__container">
+                        <!-- don't modify these 3 pswp__item elements, data is added later on -->
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                    </div>
+
+
+                    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                    <div class="pswp__ui pswp__ui--hidden">
+
+                        <div class="pswp__top-bar">
+
+                            <!--  Controls are self-explanatory. Order can be changed. -->
+
+                            <div class="pswp__counter"></div>
+
+
+
+                            <!--<button class="pswp__button pswp__button&#45;&#45;share" title="Share"></button>
+
+                            <button class="pswp__button pswp__button&#45;&#45;fs" title="Toggle fullscreen"></button>-->
+
+                            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                            <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                            <!-- element will get class pswp__preloader--active when preloader is running -->
+                            <div class="pswp__preloader">
+                                <div class="pswp__preloader__icn">
+                                    <div class="pswp__preloader__cut">
+                                        <div class="pswp__preloader__donut"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                            <div class="pswp__share-tooltip"></div>
+                        </div>
+
+                        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                        </button>
+
+                        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                        </button>
+
+                        <div class="pswp__caption">
+                            <div class="pswp__caption__center"></div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div id="preview">
+            <div class="layout">
+                <p class="title">ggsfgsdaf</p>
+                <p class="author">作者：<span></span></p>
+                <div class="article">fdafdas</div>
+                <ul class="img_box">
+
+                </ul>
+                <p class="btn_box"><button class="cancel">取消</button><button class="submit">发布</button></p>
+            </div>
+        </div>
+        <script src="js/zepto.js"></script>
+        <script src='js/photoswipe.min.js'></script>
+        <script src='js/photoswipe-ui-default.min.js'></script>
+        <script>
+       /*photoswiper*/
+       var articleImage=null;
+       $("#file").change(function(){
+         readFile(this,"img_list");
+
+       });
+
+       function changeLargeImg(self,e){
+         // 如果提供了事件对象，则这是一个非IE浏览器
+         if ( e && e.stopPropagation ) {
+           // 因此它支持W3C的stopPropagation()方法
+           e.stopPropagation();
+         } else {
+           // 否则，我们需要使用IE的方式来取消事件冒泡
+           window.event.cancelBubble = true;
+         }
+
+         // 大图
+         var img= $(".img_list img");
+         var width = [];
+         var height = [];
+         var obj = '';
+         for(var i=0;i<img.length;i++){
+
+           if(i==0){
+             obj += "[";
+           }
+           obj += "{";
+           obj += "'src':'"+$(img[i]).attr('src')+"',";
+           obj += "w:500,";
+           obj += "h:500,";
+           obj += "}";
+           if(i<img.length-1){
+             obj += ",";
+           }
+           if(i==img.length-1){
+             obj += "]";
+           }
+         }
+         var str1 = eval('('+ obj +')');
+         openPhotoSwipe(str1,$(self).parent().index())
+       }
+
+        var currentIndex=0;
+        var me=null;
+
+        var openPhotoSwipe = function(obj,index) {
+             var pswpElement = document.querySelectorAll('.pswp')[0];
+             var items = obj;
+             // define options (if needed)
+             var options = {
+               index:index,  //默认从第几张图片开始
+               history: false,
+               focus: false,
+               showAnimationDuration: 0,
+               hideAnimationDuration: 0
+             };
+         var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+         gallery.init();
+         $(".delet_box").show();
+          $(".close_box").show();
+        me=gallery;
+            };
+       /*点击photo删除*/
+       $(".delet_box").on("click",".delet_span",function(){
+         currentIndex=me.getCurrentIndex();
+//         me.items.splice(currentIndex,1);
+//         $(".img_list li:first-child").remove();
+         $(".img_list li:nth-child("+(currentIndex+1)+")").remove();
+//              gallery.destroy();
+         me.close();
+         $(".img_file").show();
+         $(".delet_box").hide();
+         $(".close_box").hide();
+         me.items.splice(currentIndex,1);
+         type.splice(currentIndex,1);
+       });
+       /*点击退出*/
+       $(".close_box").click(function(){
+         $(".delet_box").hide();
+         $(".close_box").hide();
+         me.close();
+       });
+
+          //px转换为rem
+          (function(doc, win) {
+            var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+              recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if (clientWidth >= 750) {
+                  docEl.style.fontSize = '100px';
+                } else {
+                  docEl.style.fontSize = 100 * (clientWidth /750) + 'px';
+                }
+              };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+          })(document, window);
+        /*点击上传预览*/
+       var type=[];  //保存后缀名
+       function readFile(obj,obj2){
+         var liLength=$(".img_list li").length;
+         var files = obj.files;
+         var imgContainer = document.getElementsByClassName(obj2)[0];
+         var imgArr=[];
+         for(var i=0;i<files.length;i++){
+           if(!/image\/\w+/.test(files[i].type)){
+             alert("请确保文件为图像类型");
+             return false;
+           }
+           var imgSize=files[i].size;
+           if(imgSize>1024*1024*3){
+              alert("图片不能超过3MB！");
+             return;
+           }
+           if(files.length+liLength>4){
+             alert("总数不能超过四张！");
+             return;
+           }
+           if(files.length+liLength>=4){
+             $(".img_file").hide();
+           }
+           else if(files.length+liLength<4){
+             $(".img_file").show();
+           }
+           type.push(files[i].name.split(".")[1]);
+           var reader = new FileReader();
+           reader.readAsDataURL(files[i]);
+           reader.onload = function (e) {
+             imgArr.push=this.result; //就是base64
+             var img = document.createElement("img");
+             img.setAttribute("src", this.result);
+//             img.setAttribute("data-type", files[i].name.split(".")[1]);
+             var imgAdd = document.createElement("li");
+             imgAdd.appendChild(img);
+             imgContainer.appendChild(imgAdd);
+             liLength++;
+           }
+         }
+        console.log(type);
+
+       }
+          $(".img_list").on("click","img",function(){
+            changeLargeImg(this);
+
+          });
+         /*input的框加号显示跟隐藏*/
+          function fileIsShow(){
+            var list=$(".img_list li");
+            console.log(list.length);
+            if(list.length>=4){
+              $(".img_file").hide();
+            }else{
+              $(".img_file").show();
+            }
+          }
+        /*点击图片之外元素隐藏*/
+      /*  $(".pswp__container").on("click","pswp__item",function(e){
+          console.log(1232131);
+          var evt = event.srcElement ? event.srcElement : event.target;
+          if(evt.tagName=="IMG") return;
+          else{
+                $(".pswp").css("opacity","0");
+          }
+        });*/
+
+            /*验证值不为空*/
+        function checkEmpty(val){
+          return val.length>0;
+        }
+
+           /*验证最大length*/
+        function checkMax(dom){
+          var max=$(dom).attr("max-length");
+          var vLength=$(dom).val().length;
+          return vLength>max;
+        }
+        /*设置存储*/
+        function setStore(name,content){
+          if(!name) return;
+          if (typeof content !== 'string') {
+            content = JSON.stringify(content);
+          }
+          window.localStorage.setItem(name, content);
+        }
+        /*获取存储*/
+       function getStore(name){
+         if (!name) return;
+         return window.localStorage.getItem(name);
+       }
+        /*点击预览*/
+       $(".preview").click(function(){
+         var title=$("#title").val();
+         var img=$(".img_list").html();
+         var str=$("#article").val().replace(/\r/ig, "").replace(/\n/ig, "<br>");
+         if(!checkEmpty($("#title").val())){
+                alert("文章标题是必填项！");
+                return ;
+         }
+         if(!checkEmpty($("#article").val())){
+           alert("文章是必填项！");
+           return ;
+         }
+            $(".title").html(title);
+            $(".article").html(str);
+            $(".img_box").html(img);
+            $("#setArticle").hide();
+            $("#preview").show();
+       });
+       /*点击取消*/
+       $(".cancel").click(function(){
+            $("#preview").hide();
+            $("#setArticle").show();
+       });
+       /*点击发布*/
+       $(".submit").click(function(){
+            var imgs=$(".img_box img");
+            var imgData=[];
+            for(var i=0;i<imgs.length;i++){
+               imgData.push({"Base64":$(imgs[i]).attr("src"),"SuffixType":type[i]});
+            }
+            var data=[
+              {
+                "Base64": "sample string 1",
+                "SuffixType": "sample string 2"
+              },
+              {
+                "Base64": "sample string 1",
+                "SuffixType": "sample string 2"
+              }
+            ];
+         console.log(imgData);
+            $.ajax({
+              url:"http://192.168.1.240/api/UploadImgApi/UploadImages",
+              type:"POST",
+              data:data,
+              contentType:"application/json",
+              success:function(res){
+                console.log(res);
+              }
+            })
+
+       });
+        </script>
+</body>
+
+</html>
