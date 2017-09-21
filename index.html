@@ -88,11 +88,6 @@
                             <div class="pswp__share-tooltip"></div>
                         </div>
 
-                        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                        </button>
-
-                        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                        </button>
 
                         <div class="pswp__caption">
                             <div class="pswp__caption__center"></div>
@@ -114,6 +109,16 @@
 
                 </ul>
                 <p class="btn_box"><button class="cancel">取消</button><button class="submit">发布</button></p>
+            </div>
+        </div>
+        <div id="progress">
+            <div>
+                <div class="progress_box">
+                    <div class="progress_item">
+
+                    </div>
+                </div>
+                <p class="progress_text">100%</p>
             </div>
         </div>
         <script src="js/zepto.js"></script>
@@ -182,6 +187,7 @@
          $(".delet_box").show();
           $(".close_box").show();
         me=gallery;
+        console.log(gallery);
             };
        /*点击photo删除*/
        $(".delet_box").on("click",".delet_span",function(){
@@ -341,32 +347,58 @@
        /*点击发布*/
        $(".submit").click(function(){
             var imgs=$(".img_box img");
+            $("#progress").show();
             var imgData=[];
             for(var i=0;i<imgs.length;i++){
-               imgData.push({"Base64":$(imgs[i]).attr("src"),"SuffixType":type[i]});
+               imgData.push({"Base64":$(imgs[i]).attr("src").split(",")[1],"SuffixType":type[i]});
             }
-            var data=[
-              {
-                "Base64": "sample string 1",
-                "SuffixType": "sample string 2"
-              },
-              {
-                "Base64": "sample string 1",
-                "SuffixType": "sample string 2"
-              }
-            ];
-         console.log(imgData);
+           var data=JSON.stringify(imgData);
             $.ajax({
               url:"http://192.168.1.240/api/UploadImgApi/UploadImages",
               type:"POST",
               data:data,
               contentType:"application/json",
+              processData:false,
+              xhr:function(){
+                var xhr = $.ajaxSettings.xhr();
+                if(onprogress && xhr.upload) {
+                  xhr.upload.addEventListener("progress" , onprogress, false);
+                  return xhr;
+                }
+              },
               success:function(res){
-                console.log(res);
+                if(res.Msg=="OK"){
+                  $("#progress").hide();
+                  var imgID=[];
+                  for(var i=0;i<res.Data.length;i++){
+                    imgID.push(res.Data[i].ImageId);
+                  }
+                  var Title=$("#preview .title").val();
+                  var BaseImgInfoIds=imgID.join(",");
+                  var Contents=$("#prview .article").html();//考虑到可能有换行
+                  $.ajax({
+                    url:"http://192.168.1.240/api/ArticleApi/ReleaseSylArticle",
+                    type:"POST",
+                    data:{"SylArticleId": 1, "SylApplyId": 2, "BaseImgInfoIds":BaseImgInfoIds , "Title": Title, "Author": "sample string 5"},
+                    success:function(res){
+                      console.log(res);
+                    }
+
+                  })
+                }
               }
             })
 
        });
+       /*进度条显示*/
+       function onprogress(evt){
+         console.log(evt);
+         var loaded = evt.loaded;     //已经上传大小情况
+         var tot = evt.total;      //附件总大小
+         var per = Math.floor(100*loaded/tot);  //已经上传的百分比
+         $(".progress_texxt").html( per +"%" );
+         $(".progress_item").css("width" , per +"%");
+       }
         </script>
 </body>
 
